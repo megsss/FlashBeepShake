@@ -9,17 +9,12 @@ import android.os.Build
 import android.os.Bundle
 import android.os.VibrationEffect
 import android.os.Vibrator
-import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
-import android.widget.Button
 import android.widget.Switch
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
-
 
 class MainActivity : AppCompatActivity() {
 
@@ -45,8 +40,6 @@ class MainActivity : AppCompatActivity() {
         shakebutton.setOnClickListener {
             vibrate()
         }
-
-
     }
 
     private fun vibrate() {
@@ -63,8 +56,6 @@ class MainActivity : AppCompatActivity() {
     private fun beep() {
         val tone = ToneGenerator(AudioManager.STREAM_RING, 200)
         tone.startTone(ToneGenerator.TONE_CDMA_ABBR_ALERT, 500)
-
-
     }
 
     @TargetApi(Build.VERSION_CODES.M)
@@ -78,9 +69,6 @@ class MainActivity : AppCompatActivity() {
         } else
             camera.setTorchMode(id, false)
     }
-
-
-
 }
 
     //override fun onCreateOptionsMenu(menu: Menu): Boolean {
