@@ -9,12 +9,14 @@ import android.os.Build
 import android.os.Bundle
 import android.os.VibrationEffect
 import android.os.Vibrator
+import android.util.Log
 import android.widget.Switch
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
+import java.util.logging.Logger
 
 class MainActivity : AppCompatActivity() {
 
@@ -23,11 +25,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
-
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }
 
         flashlightswitch.setOnClickListener {
             flash()
@@ -46,10 +43,10 @@ class MainActivity : AppCompatActivity() {
         val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             vibrator.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
-            print(vibrator.hasVibrator())
+            Log.v("vibrating:", vibrator.hasVibrator().toString())
         } else {
             vibrator.vibrate(500);
-            print(vibrator.hasVibrator())
+            Log.v("vibrating:", vibrator.hasVibrator().toString())
         }
     }
 
@@ -61,9 +58,12 @@ class MainActivity : AppCompatActivity() {
     @TargetApi(Build.VERSION_CODES.M)
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     private fun flash() {
+        val flashbutton = findViewById<Switch>(R.id.flashlightswitch)
+        Log.v("flash on:", flashbutton.isChecked().toString())
+
         val camera = getSystemService(Context.CAMERA_SERVICE) as CameraManager
         val id = camera.cameraIdList[0]
-        val flashbutton = findViewById<Switch>(R.id.flashlightswitch)
+
         if (flashbutton.isChecked) {
             camera.setTorchMode(id, true)
         } else
@@ -71,19 +71,5 @@ class MainActivity : AppCompatActivity() {
     }
 }
 
-    //override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-    //    menuInflater.inflate(R.menu.menu_main, menu)
-    //    return true
-    //}
 
-    //override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-     //   return when (item.itemId) {
-    //        R.id.action_settings -> true
-    //        else -> super.onOptionsItemSelected(item)
-     //   }
-    //}
 
